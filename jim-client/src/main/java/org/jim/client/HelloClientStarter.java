@@ -64,11 +64,12 @@ public class HelloClientStarter {
 
 	private static void send() throws Exception {
 		byte[] loginBody = new LoginReqBody("hello_client","123").toByte();
-		TcpPacket loginPacket = new TcpPacket(Command.COMMAND_LOGIN_REQ,loginBody);
+		TcpPacket loginPacket = new TcpPacket(Command.COMMAND_LOGIN_REQ, loginBody);
 		//先登录;
 		ImAio.send(clientChannelContext, loginPacket);
+		Thread.sleep(100);
 		while (true) {
-			Thread.sleep(10);
+			Thread.sleep(500);
 			ChatBody chatBody = ChatBody.newBuilder()
 					.setFrom("hello_client")
 					.setTo("admin")
@@ -77,7 +78,25 @@ public class HelloClientStarter {
 					.setGroup_id("100"+ UUID.randomUUID().toString())
 					.setContent("Socket普通客户端消息测试!").build();
 			TcpPacket chatPacket = new TcpPacket(Command.COMMAND_CHAT_REQ, chatBody.toByte());
+			// channelContext.isClosed(), channelContext.isRemoved()
+//			System.out.println("isClosed===>>>"+clientChannelContext.isClosed()+"  isRemoved===>>>"+clientChannelContext.isRemoved());
+			// isClosed===>>>true  isRemoved===>>>false
 			ImAio.send(clientChannelContext, chatPacket);
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

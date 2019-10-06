@@ -38,15 +38,16 @@ public class TcpProtocolHandler extends AbstractProtocolHandler {
 	}
 
 	@Override
-	public ByteBuffer encode(Packet packet, GroupContext groupContext,ChannelContext channelContext) {
+	public ByteBuffer encode(Packet packet, GroupContext groupContext, ChannelContext channelContext) {
 		TcpPacket tcpPacket = (TcpPacket)packet;
+		System.out.println("encode(ByteBuffer buffer, ChannelContext channelContext)的channelContext.hashCode()===>>>"+channelContext.hashCode());
 		return TcpServerEncoder.encode(tcpPacket, groupContext, channelContext);
 	}
 
 	@Override
-	public void handler(Packet packet, ChannelContext channelContext)throws Exception {
+	public void handler(Packet packet, ChannelContext channelContext) throws Exception {
 		TcpPacket tcpPacket = (TcpPacket)packet;
-		System.out.println(Thread.currentThread().getName()+"   handler===>>>"+tcpPacket.hashCode());
+//		System.out.println(Thread.currentThread().getName()+"   handler===>>>"+tcpPacket.hashCode());
 		AbstractCmdHandler cmdHandler = CommandManager.getCommand(tcpPacket.getCommand());
 		if(cmdHandler == null){
 			ImPacket imPacket = new ImPacket(Command.COMMAND_UNKNOW, new RespBody(Command.COMMAND_UNKNOW,ImStatus.C10017).toByte());
@@ -54,15 +55,17 @@ public class TcpProtocolHandler extends AbstractProtocolHandler {
 			return;
 		}
 		ImPacket response = cmdHandler.handler(tcpPacket, channelContext);
+		System.out.println("handler(Packet packet, ChannelContext channelContext)的channelContext.hashCode()===>>>"+channelContext.hashCode());
 		if(response != null && tcpPacket.getSynSeq() < 1){
-			ImAio.send(channelContext,response);
+			ImAio.send(channelContext, response);
 		}
 	}
 
 	@Override
-	public TcpPacket decode(ByteBuffer buffer, ChannelContext channelContext)throws AioDecodeException {
+	public TcpPacket decode(ByteBuffer buffer, ChannelContext channelContext) throws AioDecodeException {
 		TcpPacket tcpPacket = TcpServerDecoder.decode(buffer, channelContext);
-		System.out.println(Thread.currentThread().getName()+"   decode===>>>"+tcpPacket.hashCode());
+		System.out.println("decode(ByteBuffer buffer, ChannelContext channelContext)的channelContext.hashCode()===>>>"+channelContext.hashCode());
+//		System.out.println(Thread.currentThread().getName()+"   decode===>>>"+tcpPacket.hashCode());
 		return tcpPacket;
 	}
 

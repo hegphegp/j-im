@@ -14,6 +14,14 @@ import org.tio.core.ssl.SslConfig;
  * 2018/08/26
  */
 public class Config {
+
+	/**
+	 * 	private ServerAioHandler imAioHandler = null;
+	 * 	private ServerAioListener imAioListener = null;
+	 * 	private ServerGroupContext imServerGroupContext = null;
+	 * 	private GroupListener imGroupListener = null;
+	 */
+
 	/**
 	 * IP地址
 	 */

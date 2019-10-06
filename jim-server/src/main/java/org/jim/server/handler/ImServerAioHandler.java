@@ -12,11 +12,7 @@ import org.tio.core.intf.Packet;
 import org.jim.server.ImServerGroupContext;
 import org.jim.server.command.handler.processor.chat.MsgQueueRunnable;
 import org.tio.server.intf.ServerAioHandler;
-/**
- * 
- * @author WChao 
- *
- */
+/** @author WChao */
 public class ImServerAioHandler implements ServerAioHandler {
 
 	private ImConfig imConfig;
@@ -73,7 +69,7 @@ public class ImServerAioHandler implements ServerAioHandler {
 	 * 
 	 */
 	@Override
-	public Packet decode(ByteBuffer buffer,int limit, int position, int readableLength,ChannelContext channelContext) throws AioDecodeException {
+	public Packet decode(ByteBuffer buffer,int limit, int position, int readableLength, ChannelContext channelContext) throws AioDecodeException {
 		ImSessionContext imSessionContext = (ImSessionContext)channelContext.getAttribute();
 		AbstractProtocolHandler handler = null;
 		if(imSessionContext == null){

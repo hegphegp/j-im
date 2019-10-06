@@ -20,6 +20,7 @@ import org.tio.utils.Threads;
 import org.tio.utils.thread.pool.DefaultThreadFactory;
 import org.tio.utils.thread.pool.SynThreadPoolExecutor;
 
+import java.nio.ByteOrder;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -27,7 +28,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @author WChao
  *
  */
-public class ImServerGroupContext extends ServerGroupContext{
+public class ImServerGroupContext extends ServerGroupContext {
 
 	private Logger log = LoggerFactory.getLogger(ImServerGroupContext.class);
 	
@@ -39,7 +40,7 @@ public class ImServerGroupContext extends ServerGroupContext{
 	
 	protected SynThreadPoolExecutor timExecutor = null;
 	
-	public ImServerGroupContext(ImConfig imConfig , ImServerAioHandler imServerAioHandler,ImServerAioListener imServerAioListener) {
+	public ImServerGroupContext(ImConfig imConfig , ImServerAioHandler imServerAioHandler, ImServerAioListener imServerAioListener) {
 		super(imServerAioHandler, imServerAioListener);
 		this.imConfig = imConfig;
 		this.setHeartbeatTimeout(imConfig.getHeartbeatTimeout());
@@ -50,7 +51,7 @@ public class ImServerGroupContext extends ServerGroupContext{
 				try{
 					RedisCluster redisCluster = new RedisCluster(RedisClusterConfig.newInstance("REDIS_", RedissonTemplate.me().getRedissonClient(), this));
 					imConfig.setCluster(redisCluster);
-				}catch(Exception e){
+				}catch(Exception e) {
 					log.error("连接集群配置出现异常,请检查！",e);
 				}
 			}

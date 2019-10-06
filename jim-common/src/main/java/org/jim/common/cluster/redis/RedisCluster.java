@@ -7,11 +7,8 @@ import org.jim.common.ImPacket;
 import org.jim.common.cluster.ImCluster;
 import org.jim.common.cluster.ImClusterVo;
 import org.tio.core.GroupContext;
-/**
- * @author WChao
- *
- */
-public class RedisCluster extends ImCluster{
+/** @author WChao */
+public class RedisCluster extends ImCluster {
 
 	public RedisCluster(RedisClusterConfig clusterConfig) {
 		super(clusterConfig);

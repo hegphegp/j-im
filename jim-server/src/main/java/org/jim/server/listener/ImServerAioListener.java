@@ -11,11 +11,6 @@ import org.tio.core.ChannelContext;
 import org.tio.core.intf.Packet;
 import org.tio.server.intf.ServerAioListener;
 
-/**
- * 
- * @author WChao 
- *
- */
 public class ImServerAioListener implements ServerAioListener {
 
 	Logger logger = Logger.getLogger(ImServerAioListener.class);
@@ -25,12 +20,13 @@ public class ImServerAioListener implements ServerAioListener {
 	/**
 	 * @author: WChao
 	 * 2016年12月16日 下午5:52:06
-	 * 
 	 */
 	public ImServerAioListener() {}
+
 	public ImServerAioListener(ImConfig imConfig) {
 		this.imConfig = imConfig;
 	}
+
 	/**
 	 * 
 	 * 建链后触发本方法，注：建链不一定成功，需要关注参数isConnected
@@ -42,6 +38,7 @@ public class ImServerAioListener implements ServerAioListener {
 	 */
 	@Override
 	public void onAfterConnected(ChannelContext channelContext, boolean isConnected, boolean isReconnect) {
+		System.out.println("channelContext.hashCode()===>>>"+channelContext.hashCode());
 		return;
 	}
 
@@ -55,7 +52,9 @@ public class ImServerAioListener implements ServerAioListener {
 	 */
 	@Override
 	public void onAfterSent(ChannelContext channelContext, Packet packet, boolean isSentSuccess) {
+
 	}
+
 	/**
 	 * 连接关闭前触发本方法
 	 * @param channelContext the channelcontext
@@ -87,6 +86,7 @@ public class ImServerAioListener implements ServerAioListener {
 			messageHelper.getBindListener().initUserTerminal(channelContext, onlineUser.getTerminal(), ImConst.OFFLINE);
 		}
 	}
+
 	/**
 	 * 解码成功后触发本方法
 	 * @param channelContext
@@ -99,6 +99,7 @@ public class ImServerAioListener implements ServerAioListener {
 	public void onAfterDecoded(ChannelContext channelContext, Packet packet,int packetSize) throws Exception {
 		
 	}
+
 	/**
 	 * 接收到TCP层传过来的数据后
 	 * @param channelContext
@@ -106,9 +107,10 @@ public class ImServerAioListener implements ServerAioListener {
 	 * @throws Exception
 	 */
 	@Override
-	public void onAfterReceivedBytes(ChannelContext channelContext,int receivedBytes) throws Exception {
+	public void onAfterReceivedBytes(ChannelContext channelContext, int receivedBytes) throws Exception {
 		
 	}
+
 	/**
 	 * 处理一个消息包后
 	 * @param channelContext

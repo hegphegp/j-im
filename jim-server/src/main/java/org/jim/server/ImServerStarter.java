@@ -39,7 +39,7 @@ public class ImServerStarter {
 		init();
 	}
 	
-	public void init(){
+	public void init() {
 		System.setProperty("tio.default.read.buffer.size", String.valueOf(imConfig.getReadBufferSize()));
 		imAioHandler = new ImServerAioHandler(imConfig) ;
 		if(imAioListener == null) {
@@ -49,18 +49,19 @@ public class ImServerStarter {
 		imConfig.setImGroupListener(new ImGroupListener());
 
 		this.imGroupListener = (ImGroupListener)imConfig.getImGroupListener();
-		imServerGroupContext = new ImServerGroupContext(imConfig,imAioHandler, imAioListener);
+		imServerGroupContext = new ImServerGroupContext(imConfig, imAioHandler, imAioListener);
 		imServerGroupContext.setGroupListener(imGroupListener);
 		if(imConfig.getMessageHelper() == null){
 			imConfig.setMessageHelper(new RedisMessageHelper(imConfig));
 		}
 		//开启SSL
-		if(ImConst.ON.equals(imConfig.getIsSSL())){
-			SslConfig sslConfig = imConfig.getSslConfig();
-			if(sslConfig != null) {
-				imServerGroupContext.setSslConfig(sslConfig);
-			}
-		}
+//		if(ImConst.ON.equals(imConfig.getIsSSL())){
+//			SslConfig sslConfig = imConfig.getSslConfig();
+//			if(sslConfig != null) {
+//				imServerGroupContext.setSslConfig(sslConfig);
+//			}
+//		}
+        System.out.println("imServerGroupContext.hashCode()===>>>"+imServerGroupContext.hashCode());
 		aioServer = new AioServer(imServerGroupContext);
 	}
 	
